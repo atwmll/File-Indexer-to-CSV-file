@@ -12,11 +12,12 @@
 
 ### How to use:
 #### 1. Clone whole project
-#### 2. Open terminal
-#### 3. Change directory (cd) into 'Indexer' folder
-#### 4. Compile: `javac -s src -d bin src/main/java/me/atwmll/indexer/Indexer.java`
-#### 5. Run: `java -cp bin me.atwmll.indexer.Indexer`
-#### 6. Profit!
+#### 2. Modify `Indexer.java` to your needs
+#### 3. Open terminal
+#### 4. Change directory (cd) into 'Indexer' folder
+#### 5. Compile: `javac -s src -d bin src/main/java/me/atwmll/indexer/Indexer.java`
+#### 6. Run: `java -cp bin me.atwmll.indexer.Indexer`
+#### 7. Profit!
 
 # Information
 
