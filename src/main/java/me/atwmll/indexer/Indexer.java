@@ -24,9 +24,9 @@ public class Indexer {
     public static String indexer() {
 
         // Give directory location and filename with extension:
-        try (PrintWriter writer = new PrintWriter(new File("/home/tux/testcsv/test.csv"))) {
+        try (PrintWriter writer = new PrintWriter(new File("/path/to/your/future/test.csv"))) {
             // Give directory of files to index:
-            File folder = new File("/home/tux/Documents");
+            File folder = new File("/path/to/your/Documents-or-Files");
             // List all files in directory:
             File[] files = folder.listFiles();
             // Iterate through those files based on number of files in directory:
@@ -68,6 +68,7 @@ public class Indexer {
             System.out.println(e.getMessage());
             // Can add logging if desired.
         }
+        // Return finshed message:
         return "Complete!";
     }
 
