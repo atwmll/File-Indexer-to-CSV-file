@@ -12,6 +12,3 @@
 <hr>
 # Information
 ##### This code is free software -- utilize it for your organization as you please! I was assigned to make an indexer at my job and decided to share a less complicated and universal version of it because I believe it could be useful to many people outside of my organization.<br><br>The code is clearly commented, and contains useful examples on how you can use it for your specific needs.<br><br>If you have any suggestions, please feel free to pass along.
-<br>
-###### Written on a machine that uses the Linux Kernel:
-![](https://github.com/atwmll/File-Indexer-to-CSV-file/tree/master/src/main/resources/Tux.png)
