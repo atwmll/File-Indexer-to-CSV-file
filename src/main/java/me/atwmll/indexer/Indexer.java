@@ -18,11 +18,15 @@ import java.util.Date;
 public class Indexer {
 
     public static void main(String[] args) {
+        Indexer.indexer();
+    }
+
+    public static String indexer() {
 
         // Give directory location and filename with extension:
-        try (PrintWriter writer = new PrintWriter(new File("/your/path/to/csv/test.csv"))) {
+        try (PrintWriter writer = new PrintWriter(new File("/home/tux/testcsv/test.csv"))) {
             // Give directory of files to index:
-            File folder = new File("/your/path/to/files");
+            File folder = new File("/home/tux/Documents");
             // List all files in directory:
             File[] files = folder.listFiles();
             // Iterate through those files based on number of files in directory:
@@ -44,7 +48,8 @@ public class Indexer {
                     // Empty cell:
                     sb.append(',');
                     // Name of files in directory:
-                    sb.append(file.getName()).append(',');
+                    // Replaces a comma in a filename, messing up formatting:
+                    sb.append(file.getName().replace(",", "")).append(',');
                     // Line-break:
                     sb.append('\n');
                     // Writes generated strings to csv file:
@@ -63,6 +68,7 @@ public class Indexer {
             System.out.println(e.getMessage());
             // Can add logging if desired.
         }
+        return "Complete!";
     }
 
     /**
