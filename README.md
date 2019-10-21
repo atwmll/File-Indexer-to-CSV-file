@@ -1,7 +1,7 @@
 # Indexer Documentation
 ![](https://img.shields.io/badge/Language-Java-yellow) ![](https://img.shields.io/badge/Purpose-Enterprise/Small_biz-ff69b4)
 ![](https://img.shields.io/badge/Build-Stable-success)
-![](https://img.shields.io/badge/Issues-Minor%2Fextra-yellowgreen)
+![](https://img.shields.io/badge/Issues-Minor%2FExtra-yellowgreen)
 ![](https://img.shields.io/badge/Other%20Info%3A-Educational%2FProductivity-9cf)
 
 ### What is it?
