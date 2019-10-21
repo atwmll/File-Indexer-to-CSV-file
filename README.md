@@ -1,10 +1,11 @@
 # Indexer Documentation
 ![](https://img.shields.io/badge/Language-Java-yellow) ![](https://img.shields.io/badge/Purpose-Enterprise/Small_biz-ff69b4)
-![](https://img.shields.io/badge/Build-stable-success)
+![](https://img.shields.io/badge/Build-Stable-success)
+![](https://img.shields.io/badge/Issues-Minor%2Fextra-yellowgreen)
 ![](https://img.shields.io/badge/Other%20Info%3A-Educational%2FProductivity-9cf)
 
 ### What is it?
-* #### A simple tool that indexes large amounts of files and adds their names, along with additional information (defaulted, but configurable by you) to a Comma Separated Values (.csv) file that can be simply opened using Libre/Open Office or alternatively Microsoft Excel.
+* #### A simple tool that indexes large amounts of files and adds their names, along with additional information (defaulted, but easily configurable by you!) to a Comma Separated Values (.csv) file that can be simply opened using Libre/Open Office or alternatively Microsoft Excel.
 
 ### Usage:
 * #### File organization
@@ -12,12 +13,11 @@
 
 ### How to use:
 #### 1. Clone whole project
-#### 2. Modify `Indexer.java` to your needs
+#### 2. Modify `Indexer.java`, `indexer.properties`, `log4j.properties` to your needs
 #### 3. Open terminal
-#### 4. Change directory (cd) into 'Indexer' folder
-#### 5. Compile: `javac -s src -d bin src/main/java/me/atwmll/indexer/Indexer.java`
-#### 6. Run: `java -cp bin me.atwmll.indexer.Indexer`
-#### 7. Profit!
+#### 4. Change directory (cd) into 'Indexer-run-jar' folder
+#### 5. Run: `java -jar -Dlog4j.configuration=file:"./log4j.properties" Indexer-1-jar-with-dependencies.jar`
+#### 6. Profit!
 
 # Information
 
