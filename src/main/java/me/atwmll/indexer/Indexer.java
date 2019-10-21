@@ -1,7 +1,6 @@
 package me.atwmll.indexer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -10,10 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import static me.atwmll.indexer.properties.IndexerProperties.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
@@ -27,24 +23,29 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class Indexer {
 
-    public static void main(String[] args) {
+    final static Logger LOG = Logger.getLogger(Indexer.class.getName());
+
+    public static void main(String[] args) throws IOException {
+
+        LOG.info("Indexer called from main");
         Indexer.indexer();
     }
 
-    public static String indexer() {
+    public static String indexer() throws IOException {
 
         // Give directory location and filename with extension:
-        try (PrintWriter writer = new PrintWriter(new File("/your/path/to/output.csv"))) {
+        try (var writer = new PrintWriter(new File(getOutputCsv()))) {
             // Give directory of files to index:
-            File folder = new File("/your/path/to/docs_to_index");
-            // List all files in directory:
-            File[] files = folder.listFiles();
+            var folder = new File(getIndexDir());
+            // List all files in directory (Array):
+            var files = folder.listFiles();
             // Builds string:
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             // Adds description of cell:
-            sb.append("Date of Index:,Fake Test Acct. Nums.:,Empty Cell:,Mapping ID:,Empty Cell:,Test Text:,Test Text:,File Description (excluding commas if any):,Full Filename (excluding commas if any):,File Extension:\n");
+            sb.append(getCsvHeader());
             // Iterate through the directory:
-            for (File file : files) {
+            for (var file : files) {
+                var fName = file.getName().substring(file.getName().indexOf("-"), file.getName().indexOf(".")).replace("- ", "").replace(",", "");
                 // Date of program execution:
                 sb.append(date()).append(',');
                 // First account nums:
@@ -52,7 +53,7 @@ public class Indexer {
                 // Empty cell:
                 sb.append(',');
                 // Map file description to ID:
-                sb.append(getMapData(file.getName().substring(file.getName().indexOf("-"), file.getName().indexOf(".")).replace("- ", "").replace(",", ""))).append(',');
+                sb.append(getMapData(fName)).append(',');
                 // Empty cell for example:
                 sb.append(',');
                 // Random text (github username):
@@ -60,7 +61,7 @@ public class Indexer {
                 // More random text for example:
                 sb.append("Just For Fun,");
                 // Just gets name of file between number and extension:
-                sb.append(file.getName().substring(file.getName().indexOf("-"), file.getName().indexOf(".")).replace("- ", "").replace(",", "")).append(',');
+                sb.append(fName).append(',');
                 // Name of files in directory:
                 // Replaces a comma in a filename, messing up formatting:
                 sb.append(file.getName().replace(",", "")).append(',');
@@ -69,50 +70,46 @@ public class Indexer {
                 // Line-break:
                 sb.append('\n');
             }
+
             // Prints out formatted lines for testing:
             System.out.println(sb.toString());
             // Writes generated strings to csv file:
             writer.write(sb.toString());
             // Complete message:
             System.out.println("done!");
-            // Exception handling:
-        } catch (FileNotFoundException e) {
-            // Prints exception:
-            System.out.println(e.getMessage());
-            // Can add logging if desired.
+
+            return "Complete!";
         }
-        // Return finshed message:
-        return "Complete!";
     }
 
     public static Map<String, Map<String, String>> setMapData() {
 
         try {
-            File mappingFile = new File("/your/path/to/mapping_file.xlsx (or .csv)");
+            var mappingFile = new File(getMapping());
 
-            Workbook workbook = new XSSFWorkbook(mappingFile.toString());
+            var workbook = new XSSFWorkbook(mappingFile.toString());
 
-            Sheet sheet = workbook.getSheetAt(0);
+            var sheet = workbook.getSheetAt(0);
 
-            int lastRow = sheet.getLastRowNum();
+            var lastRow = sheet.getLastRowNum();
 
-            Map<String, Map<String, String>> excelFileMap = new HashMap<String, Map<String, String>>();
+            Map<String, Map<String, String>> excelFileMap = new HashMap<>();
 
-            Map<String, String> dataMap = new HashMap<String, String>();
+            Map<String, String> dataMap = new HashMap<>();
 
             //Looping over entire row
             for (int i = 0; i <= lastRow; i++) {
 
-                Row row = sheet.getRow(i);
+                var row = sheet.getRow(i);
 
                 //1st Cell as Value
-                Cell valueCell = row.getCell(1);
+                var valueCell = row.getCell(1);
 
                 //0th Cell as Key
-                Cell keyCell = row.getCell(0);
+                var keyCell = row.getCell(0);
 
-                String value = valueCell.getStringCellValue().trim();
-                String key = keyCell.getStringCellValue().trim();
+                var value = valueCell.getStringCellValue().trim();
+                var key = keyCell.getStringCellValue().trim();
 
                 //Putting key & value in dataMap
                 dataMap.put(key, value);
@@ -133,7 +130,7 @@ public class Indexer {
     public static String getMapData(String key) {
 
         Map<String, String> m = setMapData().get("DataSheet");
-        String value = m.get(key);
+        var value = m.get(key);
 
         return value;
     }
@@ -143,11 +140,11 @@ public class Indexer {
      *
      * @return formatted date.
      */
-    public static String date() {
+    public static String date() throws IOException {
         // Initialize Date utility:
-        Date date = new Date();
+        var date = new Date();
         // Initialize date-formatter and format date:
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy @ hh:mm.ss a");
+        var formatter = new SimpleDateFormat(getDateFormat());
 
         // Return formatted date:
         return formatter.format(date);
