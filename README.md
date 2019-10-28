@@ -21,7 +21,7 @@
 #### 1. Clone whole project
 #### 2. Modify any code to your needs (Indexer.java, log4j.properties, indexer.properties), and clean and build.
 #### 3. Locate the 'Target' folder in the root (/) of Indexer where you will find an automatically generated .zip file containing every file you need (besides test documents) to run the program from the terminal, or set-up task scheduling.
-#### 4. Extract that folder, and copy the files in the root (/) of Indexer to use the test folders and documents, or if you modified this for your own purpose, extract to the appropriate place for your purpose.
+#### 4. Extract that folder, and copy the files to the root (/) of Indexer to use the test folders and documents, or if you modified this for your own purpose, extract to the appropriate place for your purpose.
 #### 5. Run: `java -jar -Dlog4j.configuration=file:"./log4j.properties" Indexer-JarWithDeps-1.jar`
 #### 6. Profit!
 
