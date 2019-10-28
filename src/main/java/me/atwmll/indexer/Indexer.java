@@ -1,15 +1,16 @@
 package me.atwmll.indexer;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static me.atwmll.indexer.properties.IndexerProperties.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
@@ -31,18 +32,32 @@ public class Indexer {
         Indexer.indexer();
     }
 
+    public static String getProps(String propKey) {
+        var props = new Properties();
+        // If running from IDE, use "src/main/resources/indexer.properties"
+        // For running uberjar/fatjar, use ./indexer.properties
+        try (var propsFile = new FileInputStream("./indexer.properties")) {
+
+            props.load(propsFile);
+
+        } catch (IOException iox) {
+            // Log me
+        }
+        return props.getProperty(propKey);
+    }
+
     public static String indexer() throws IOException {
 
         // Give directory location and filename with extension:
-        try (var writer = new PrintWriter(new File(getOutputCsv()))) {
+        try (var writer = new PrintWriter(new File(getProps("outputCsv")))) {
             // Give directory of files to index:
-            var folder = new File(getIndexDir());
+            var folder = new File(getProps("dir"));
             // List all files in directory (Array):
             var files = folder.listFiles();
             // Builds string:
             var sb = new StringBuilder();
             // Adds description of cell:
-            sb.append(getCsvHeader());
+            sb.append(getProps("csvHeader"));
             // Iterate through the directory:
             for (var file : files) {
                 var fName = file.getName().substring(file.getName().indexOf("-"), file.getName().indexOf(".")).replace("- ", "").replace(",", "");
@@ -85,7 +100,7 @@ public class Indexer {
     public static Map<String, Map<String, String>> setMapData() {
 
         try {
-            var mappingFile = new File(getMapping());
+            var mappingFile = new File(getProps("mapping"));
 
             var workbook = new XSSFWorkbook(mappingFile.toString());
 
@@ -144,7 +159,7 @@ public class Indexer {
         // Initialize Date utility:
         var date = new Date();
         // Initialize date-formatter and format date:
-        var formatter = new SimpleDateFormat(getDateFormat());
+        var formatter = new SimpleDateFormat(getProps("dateFormat"));
 
         // Return formatted date:
         return formatter.format(date);

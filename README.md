@@ -7,7 +7,7 @@
 ![](https://img.shields.io/badge/Purpose-Enterprise/Small_biz-ff69b4)
 ![](https://img.shields.io/badge/Other%20Info%3A-Educational%2FProductivity-9cf)
 
-## <u>Stop manually indexing files, you have a life!!</u>
+## <u>Stop manually indexing files, you have a life!!</u><br>Use the <u>simple</u> Indexer!
 
 ### What is it?
 * #### A simple tool that indexes large amounts of files and adds their names, along with additional information (defaulted, but easily configurable by you!) to a Comma Separated Values (.csv) file that can be simply opened using Libre/Open Office or alternatively Microsoft Excel.
@@ -17,12 +17,12 @@
 * #### Record keeping
 
 ### How to use:
-#### (Test folders and files are provided!)
+#### (Test folders and files are provided in root (/) of Indexer!)
 #### 1. Clone whole project
-#### 2. Modify `Indexer.java`, `indexer.properties`, `log4j.properties` to your needs (paths, code, wording, etc..)
-#### 3. Open terminal
-#### 4. Change directory (cd) into 'Indexer-run-jar' folder
-#### 5. Run: `java -jar -Dlog4j.configuration=file:"./log4j.properties" Indexer-1-jar-with-dependencies.jar`
+#### 2. Modify any code to your needs (Indexer.java, log4j.properties, indexer.properties), and clean and build.
+#### 3. Locate the 'Target' folder in the root (/) of Indexer where you will find an automatically generated .zip file containing every file you need (besides test documents) to run the program from the terminal, or set-up task scheduling.
+#### 4. Extract that folder, and copy the files in the root (/) of Indexer to use the test folders and documents, or if you modified this for your own purpose, extract to the appropriate place for your purpose.
+#### 5. Run: `java -jar -Dlog4j.configuration=file:"./log4j.properties" Indexer-JarWithDeps-1.jar`
 #### 6. Profit!
 
 # Technical Information:
